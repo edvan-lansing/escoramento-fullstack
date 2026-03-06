@@ -1,0 +1,190 @@
+{
+  "Topbar": {
+    "phone": "0800 033 0327",
+    "schedule": "Agendamento",
+    "register": "Cadastro",
+    "contact": "Contato"
+  },
+  "Nav": {
+    "equipment": "Equipamentos",
+    "technicalMaterial": "Material Técnico",
+    "about": "Sobre",
+    "rent": "Locação",
+    "buy": "Venda",
+    "catalogs": "Catálogos",
+    "blog": "Blog",
+    "company": "Empresa",
+    "privacyPolicy": "Política de Privacidade",
+    "termsOfUse": "Termos Gerais de Uso"
+  },
+  "Actions": {
+    "openMenu": "Abrir menu",
+    "chat": "Chat",
+    "shop": "Loja",
+    "account": "Conta",
+    "shopLabel": "LOJA",
+    "appClient": "App Cliente",
+    "languagePt": "PT",
+    "languageEn": "EN"
+  },
+  "Products": {
+    "searchPlaceholder": "O que você está procurando?",
+    "searchButton": "Buscar",
+    "sectionTitle": "Garantia do Melhor Preço Online",
+    "sectionSubtitle": "A certeza de que o preço apresentado na área do cliente será sempre o menor valor para o produto que você precisa.",
+    "priceFromMonth": "A partir de {price} por mês",
+    "viewPrices": "Ver preços",
+    "accessContent": "Acessar conteúdo",
+    "categories": {
+      "sheetPiles": "Estacas Prancha",
+      "trenchShielding": "Blindagens de Vala"
+    },
+    "sheetPiles": {
+      "u750": {
+        "title": "Estacas Prancha U750",
+        "description": "Perfis de 750mm de largura, em aço 355 MPa.",
+        "imageAlt": "Estacas Prancha U750"
+      },
+      "u800": {
+        "title": "Estacas Prancha U800",
+        "description": "Indicada para aplicações de carga pesada, em valas profundas, ensacadeiras, estações elevatórias e obras marítimas.",
+        "imageAlt": "Estacas Prancha U800"
+      },
+      "u600": {
+        "title": "Estacas Prancha U600",
+        "description": "Faça seu orçamento em tempo real e receba sua proposta em PDF e em poucos segundos.",
+        "imageAlt": "Estacas Prancha U600"
+      }
+    },
+    "trenchShielding": {
+      "light": {
+        "title": "Blindagens Leves",
+        "description": "Projetadas para trabalhar com retroescavadeiras.",
+        "imageAlt": "Blindagens Leves"
+      },
+      "heavy": {
+        "title": "Blindagens Pesadas",
+        "description": "Agilidade no trabalho com escavadeiras.",
+        "imageAlt": "Blindagens Pesadas"
+      },
+      "depthExtenders": {
+        "title": "Extensores de Profundidade",
+        "description": "Trabalho seguro em maiores profundidades.",
+        "imageAlt": "Extensores de Profundidade"
+      }
+    },
+    "promo": {
+      "technical": {
+        "title": "Material Técnico",
+        "label": "Catálogos e guias",
+        "cardTitle": "Catálogos, Manuais de Transporte, Guias de Normas de escavação e Infográficos",
+        "description": "Acesse agora o conteúdo técnico com as especificações, capacidade de carga e dimensões dos equipamentos.",
+        "imageAlt": "Material Técnico"
+      },
+      "resources": {
+        "title": "Recursos",
+        "subtitle": "Blog e vídeos",
+        "label": "Blog e Vídeos",
+        "cardTitle": "Acesse conteúdo técnico também através do nosso blog e em nosso canal de vídeos",
+        "description": "Acompanhe as últimas atualizações do setor, aplicações das soluções em obras, dicas úteis e cases.",
+        "imageAlt": "Recursos"
+      }
+    },
+    "featured": {
+      "schedule": {
+        "title": "Agendamento",
+        "label": "Agendamento Online",
+        "cardTitle": "Agendamento Online",
+        "description": "Agende a retirada ou devolução do seu equipamento online. Mais fácil, mais rápido.",
+        "ctaLabel": "Agendar agora",
+        "imageAlt": "Agendamento"
+      },
+      "credit": {
+        "title": "Crédito",
+        "label": "Análise de Cadastro",
+        "cardTitle": "Análise de Cadastro na Hora",
+        "description": "Analisamos seu cadastro na hora, de forma rápida e objetiva.",
+        "ctaLabel": "Aprovar meu cadastro",
+        "imageAlt": "Crédito"
+      }
+    }
+  }
+  ,
+  "Carousel": {
+    "prevSlide": "Slide anterior",
+    "nextSlide": "Próximo slide",
+    "slides": [
+      {
+        "imageAlt": "carousel 1",
+        "title": "Escoramento de Solos",
+        "kicker": "SOLUÇÕES EM AÇO",
+        "description": "Linha completa de Blindagens e Estacas Prancha",
+        "ctaLabel": "SABER MAIS"
+      },
+      {
+        "imageAlt": "carousel 2",
+        "title": "Nova Linha EuroBox",
+        "kicker": "LARGURA AJUSTÁVEL",
+        "description": "Mais flexibilidade com múltiplas larguras",
+        "ctaLabel": "SAIBA MAIS"
+      },
+      {
+        "imageAlt": "carousel 3",
+        "title": "Blindagens de Vala Flexíveis",
+        "kicker": "MOLAS MECÂNICAS",
+        "description": "Instalação mais fácil, retirada sem sobrecorte",
+        "ctaLabel": "COTAR AGORA"
+      },
+      {
+        "imageAlt": "carousel 4",
+        "title": "Pronto para trabalhar",
+        "kicker": "SEMPRE REVISADO",
+        "description": "A segurança de saber que tudo foi verificado antes da retirada",
+        "ctaLabel": "SABER MAIS"
+      },
+      {
+        "imageAlt": "carousel 5",
+        "title": "Estacas Prancha U750",
+        "kicker": "PADRÃO INTERNACIONAL",
+        "description": "Linha completa em aço S355 para contenções provisórias e obras definitivas",
+        "ctaLabel": "SAIBA MAIS"
+      }
+    ]
+  },
+  "Footer": {
+    "copyright": "Copyright {year} Escoramento.com - Todos os Direitos Reservados",
+    "support": {
+      "imageAlt": "Suporte técnico",
+      "kicker": "Suporte técnico",
+      "title": "Precisa de Ajuda para Escolher?",
+      "callPrefix": "Ligue",
+      "callSuffix": "direto com especialista"
+    },
+    "links": {
+      "equipment": "Equipamentos",
+      "rent": "Locação",
+      "buy": "Venda",
+      "technicalMaterial": "Material Técnico",
+      "catalogs": "Catálogos",
+      "blog": "Blog",
+      "about": "Sobre",
+      "company": "Empresa",
+      "privacyPolicy": "Política de Privacidade",
+      "termsOfUse": "Termos Gerais de Uso",
+      "appClient": "App Cliente",
+      "budgets": "Orçamentos",
+      "onlineScheduling": "Agendamento Online",
+      "registration": "Cadastro",
+      "supportChannels": "Canais de Atendimento",
+      "chatWithExpert": "Chat com Especialista"
+    }
+  }
+  ,
+  "MobileMenu": {
+    "title": "Menu",
+    "close": "Fechar",
+    "shop": "Loja",
+    "talkToExpert": "Falar com especialista",
+    "customerArea": "Área do cliente"
+  }
+}

@@ -1,0 +1,190 @@
+{
+  "Topbar": {
+    "phone": "0800 033 0327",
+    "schedule": "Booking",
+    "register": "App",
+    "contact": "Contact"
+  },
+  "Nav": {
+    "equipment": "Equipments",
+    "technicalMaterial": "Technical material",
+    "about": "About",
+    "rent": "Rent",
+    "buy": "Buy",
+    "catalogs": "Catalogs",
+    "blog": "Blog",
+    "company": "Company",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfUse": "Terms of Use"
+  },
+  "Actions": {
+    "openMenu": "Open menu",
+    "chat": "Chat",
+    "shop": "Shop",
+    "account": "Account",
+    "shopLabel": "SHOP",
+    "appClient": "Customer App",
+    "languagePt": "PT",
+    "languageEn": "EN"
+  },
+  "Products": {
+    "searchPlaceholder": "What are you looking for?",
+    "searchButton": "Search",
+    "sectionTitle": "Best Online Price Guarantee",
+    "sectionSubtitle": "The assurance that the price shown in the customer area will always be the lowest value for the product you need.",
+    "priceFromMonth": "From {price} per month",
+    "viewPrices": "See prices",
+    "accessContent": "Access content",
+    "categories": {
+      "sheetPiles": "Sheet piles",
+      "trenchShielding": "Trench shielding"
+    },
+    "sheetPiles": {
+      "u750": {
+        "title": "U750 Sheet Piles",
+        "description": "750mm-wide profiles in 355 MPa steel.",
+        "imageAlt": "U750 Sheet Piles"
+      },
+      "u800": {
+        "title": "U800 Sheet Piles",
+        "description": "Recommended for heavy-load applications: deep trenches, baggers, pumping stations and marine works.",
+        "imageAlt": "U800 Sheet Piles"
+      },
+      "u600": {
+        "title": "U600 Sheet Piles",
+        "description": "Get a real-time quote and receive your PDF proposal in seconds.",
+        "imageAlt": "U600 Sheet Piles"
+      }
+    },
+    "trenchShielding": {
+      "light": {
+        "title": "Light shielding",
+        "description": "Designed to work with backhoe loaders.",
+        "imageAlt": "Light shielding"
+      },
+      "heavy": {
+        "title": "Heavy shielding",
+        "description": "Faster work with excavators.",
+        "imageAlt": "Heavy shielding"
+      },
+      "depthExtenders": {
+        "title": "Depth extenders",
+        "description": "Safer work at greater depths.",
+        "imageAlt": "Depth extenders"
+      }
+    },
+    "promo": {
+      "technical": {
+        "title": "Technical Material",
+        "label": "Catalogs and guides",
+        "cardTitle": "Catalogs, Transport Manuals, Excavation Standards Guides and Infographics",
+        "description": "Access technical content with specifications, load capacity and equipment dimensions.",
+        "imageAlt": "Technical Material"
+      },
+      "resources": {
+        "title": "Resources",
+        "subtitle": "Blog and videos",
+        "label": "Blog and Videos",
+        "cardTitle": "Access technical content through our blog and video channel",
+        "description": "Follow the latest industry updates, solution applications on job sites, useful tips and case studies.",
+        "imageAlt": "Resources"
+      }
+    },
+    "featured": {
+      "schedule": {
+        "title": "Scheduling",
+        "label": "Online Scheduling",
+        "cardTitle": "Online Scheduling",
+        "description": "Schedule equipment pickup or return online. Easier and faster.",
+        "ctaLabel": "Schedule now",
+        "imageAlt": "Scheduling"
+      },
+      "credit": {
+        "title": "Credit",
+        "label": "Registration Review",
+        "cardTitle": "Instant Registration Review",
+        "description": "We review your registration instantly—fast and objective.",
+        "ctaLabel": "Approve my registration",
+        "imageAlt": "Credit"
+      }
+    }
+  }
+  ,
+  "Carousel": {
+    "prevSlide": "Previous slide",
+    "nextSlide": "Next slide",
+    "slides": [
+      {
+        "imageAlt": "carousel 1",
+        "title": "Shoring Equipment",
+        "kicker": "TRENCH BOXES AND SHEET PILES",
+        "description": "EU certified equipment supplier in Brazil",
+        "ctaLabel": "MORE INFO"
+      },
+      {
+        "imageAlt": "carousel 2",
+        "title": "EuroBox Trench Boxes",
+        "kicker": "ADJUSTABLE WIDTH",
+        "description": "Easy adjustments with telescopic struts",
+        "ctaLabel": "MORE INFO"
+      },
+      {
+        "imageAlt": "carousel 3",
+        "title": "Trench Boxes",
+        "kicker": "FLEXIBLE STRUTS",
+        "description": "Euro Trench Boxes designed for excavate and lower in place technique",
+        "ctaLabel": "GET A QUOTE"
+      },
+      {
+        "imageAlt": "carousel 4",
+        "title": "Ready to work",
+        "kicker": "MAINTENANCE UP TO DATE",
+        "description": "Don't worry about it, we got the maintenance covered for you",
+        "ctaLabel": "MORE INFO"
+      },
+      {
+        "imageAlt": "carousel 5",
+        "title": "Sheet Sheet Piles",
+        "kicker": "HIGH STEEL GRADE",
+        "description": "Check out our product range available for rent or sale",
+        "ctaLabel": "MORE INFO"
+      }
+    ]
+  },
+  "Footer": {
+    "copyright": "Copyright {year} Escoramento.com - All rights reserved",
+    "support": {
+      "imageAlt": "Technical support",
+      "kicker": "Technical support",
+      "title": "Need help choosing?",
+      "callPrefix": "Call",
+      "callSuffix": "to speak with a specialist"
+    },
+    "links": {
+      "equipment": "Equipment",
+      "rent": "Rent",
+      "buy": "Buy",
+      "technicalMaterial": "Technical Material",
+      "catalogs": "Catalogs",
+      "blog": "Blog",
+      "about": "About",
+      "company": "Company",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfUse": "Terms of Use",
+      "appClient": "Customer App",
+      "budgets": "Budgets",
+      "onlineScheduling": "Online Scheduling",
+      "registration": "Registration",
+      "supportChannels": "Support Channels",
+      "chatWithExpert": "Chat with an expert"
+    }
+  }
+  ,
+  "MobileMenu": {
+    "title": "Menu",
+    "close": "Close",
+    "shop": "Shop",
+    "talkToExpert": "Talk to an expert",
+    "customerArea": "Customer area"
+  }
+}
