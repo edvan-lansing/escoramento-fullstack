@@ -20,6 +20,7 @@ import {
   Typography,
 } from "@mui/material";
 import AdminLayout from "@/src/layouts/AdminLayout";
+import AuthGuard from "@/src/components/AuthGuard";
 import ProductForm, { type ProductFormValues } from "@/src/components/ProductForm";
 import {
   createProduct,
@@ -133,101 +134,103 @@ export default function Home() {
   };
 
   return (
-    <AdminLayout>
-      <Stack spacing={3}>
-        <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <Typography variant="h4" fontWeight={700}>
-            Product Management
-          </Typography>
+    <AuthGuard>
+      <AdminLayout>
+        <Stack spacing={3}>
+          <Stack direction="row" alignItems="center" justifyContent="space-between">
+            <Typography variant="h4" fontWeight={700}>
+              Product Management
+            </Typography>
 
-          <Button variant="contained" onClick={openCreateDialog}>
-            Create New Product
-          </Button>
-        </Stack>
+            <Button variant="contained" onClick={openCreateDialog}>
+              Create New Product
+            </Button>
+          </Stack>
 
-        {error ? <Alert severity="error">{error}</Alert> : null}
+          {error ? <Alert severity="error">{error}</Alert> : null}
 
-        {loading ? (
-          <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
-            <CircularProgress />
-          </Box>
-        ) : (
-          <TableContainer component={Paper} elevation={0}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Category</TableCell>
-                  <TableCell>Image</TableCell>
-                  <TableCell>Title</TableCell>
-                  <TableCell>Price From</TableCell>
-                  <TableCell>CTA Label</TableCell>
-                  <TableCell>CTA Link</TableCell>
-                  <TableCell align="right">Actions</TableCell>
-                </TableRow>
-              </TableHead>
-
-              <TableBody>
-                {products.length === 0 ? (
+          {loading ? (
+            <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
+              <CircularProgress />
+            </Box>
+          ) : (
+            <TableContainer component={Paper} elevation={0}>
+              <Table>
+                <TableHead>
                   <TableRow>
-                    <TableCell colSpan={7} align="center">
-                      No products found
-                    </TableCell>
+                    <TableCell>Category</TableCell>
+                    <TableCell>Image</TableCell>
+                    <TableCell>Title</TableCell>
+                    <TableCell>Price From</TableCell>
+                    <TableCell>CTA Label</TableCell>
+                    <TableCell>CTA Link</TableCell>
+                    <TableCell align="right">Actions</TableCell>
                   </TableRow>
-                ) : (
-                  products.map((product) => (
-                    <TableRow key={product._id} hover>
-                      <TableCell>{product.category || "-"}</TableCell>
-                      <TableCell>
-                        {product.image ? (
-                          <a href={product.image} target="_blank" rel="noreferrer">
-                            View image
-                          </a>
-                        ) : (
-                          "-"
-                        )}
-                      </TableCell>
-                      <TableCell>{product.title}</TableCell>
-                      <TableCell>
-                        {product.priceFrom || "-"}
-                      </TableCell>
-                      <TableCell>{product.ctaLabel || "-"}</TableCell>
-                      <TableCell>{product.ctaLink || "-"}</TableCell>
-                      <TableCell align="right">
-                        <Stack direction="row" spacing={1} justifyContent="flex-end">
-                          <Button variant="outlined" onClick={() => openEditDialog(product)}>
-                            Edit
-                          </Button>
-                          <Button
-                            variant="outlined"
-                            color="error"
-                            onClick={() => handleDelete(product._id)}
-                          >
-                            Delete
-                          </Button>
-                        </Stack>
+                </TableHead>
+
+                <TableBody>
+                  {products.length === 0 ? (
+                    <TableRow>
+                      <TableCell colSpan={7} align="center">
+                        No products found
                       </TableCell>
                     </TableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        )}
-      </Stack>
+                  ) : (
+                    products.map((product) => (
+                      <TableRow key={product._id} hover>
+                        <TableCell>{product.category || "-"}</TableCell>
+                        <TableCell>
+                          {product.image ? (
+                            <a href={product.image} target="_blank" rel="noreferrer">
+                              View image
+                            </a>
+                          ) : (
+                            "-"
+                          )}
+                        </TableCell>
+                        <TableCell>{product.title}</TableCell>
+                        <TableCell>
+                          {product.priceFrom || "-"}
+                        </TableCell>
+                        <TableCell>{product.ctaLabel || "-"}</TableCell>
+                        <TableCell>{product.ctaLink || "-"}</TableCell>
+                        <TableCell align="right">
+                          <Stack direction="row" spacing={1} justifyContent="flex-end">
+                            <Button variant="outlined" onClick={() => openEditDialog(product)}>
+                              Edit
+                            </Button>
+                            <Button
+                              variant="outlined"
+                              color="error"
+                              onClick={() => handleDelete(product._id)}
+                            >
+                              Delete
+                            </Button>
+                          </Stack>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
+        </Stack>
 
-      <Dialog open={isFormOpen} onClose={closeFormDialog} fullWidth maxWidth="sm">
-        <DialogTitle>{selectedProduct ? "Edit Product" : "Create Product"}</DialogTitle>
-        <DialogContent>
-          <Box sx={{ pt: 1 }}>
-            <ProductForm
-              key={selectedProduct?._id ?? "new"}
-              initialValues={formInitialValues}
-              isSubmitting={submitting}
-              onSubmit={handleSubmit}
-            />
-          </Box>
-        </DialogContent>
-      </Dialog>
-    </AdminLayout>
+        <Dialog open={isFormOpen} onClose={closeFormDialog} fullWidth maxWidth="sm">
+          <DialogTitle>{selectedProduct ? "Edit Product" : "Create Product"}</DialogTitle>
+          <DialogContent>
+            <Box sx={{ pt: 1 }}>
+              <ProductForm
+                key={selectedProduct?._id ?? "new"}
+                initialValues={formInitialValues}
+                isSubmitting={submitting}
+                onSubmit={handleSubmit}
+              />
+            </Box>
+          </DialogContent>
+        </Dialog>
+      </AdminLayout>
+    </AuthGuard>
   );
 }

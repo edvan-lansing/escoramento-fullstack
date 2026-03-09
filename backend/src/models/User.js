@@ -1,13 +1,8 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: true,
-      trim: true,
-    },
     email: {
       type: String,
       required: true,
@@ -23,18 +18,17 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["admin", "editor"],
+      enum: ["admin", "editor", "manager"],
       default: "admin",
     },
   },
-  { timestamps: true }
+  { timestamps: { createdAt: true, updatedAt: false } }
 );
 
-userSchema.pre("save", async function preSave(next) {
-  if (!this.isModified("password")) return next();
+userSchema.pre("save", async function preSave() {
+  if (!this.isModified("password")) return;
 
   this.password = await bcrypt.hash(this.password, 10);
-  return next();
 });
 
 userSchema.methods.comparePassword = function comparePassword(candidatePassword) {
