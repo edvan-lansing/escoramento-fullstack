@@ -20,15 +20,35 @@ const authMiddleware = async (req, _res, next) => {
 
     req.user = {
       id: String(user._id),
-      name: user.name,
       email: user.email,
       role: user.role,
+      createdAt: user.createdAt,
     };
 
     return next();
   } catch (error) {
+    if (error.name === "TokenExpiredError" || error.name === "JsonWebTokenError") {
+      return next(new ApiError(401, "Invalid or expired token"));
+    }
+
     return next(error);
   }
 };
 
-module.exports = { authMiddleware };
+const authorizeRoles = (...roles) => (req, _res, next) => {
+  if (!req.user) {
+    return next(new ApiError(401, "Unauthorized"));
+  }
+
+  if (!roles.includes(req.user.role)) {
+    return next(new ApiError(403, "Forbidden"));
+  }
+
+  return next();
+};
+
+const adminMiddleware = (req, _res, next) => {
+  return authorizeRoles("admin")(req, _res, next);
+};
+
+module.exports = { authMiddleware, authorizeRoles, adminMiddleware };
