@@ -3,6 +3,7 @@
 import { useEffect, useState, type PropsWithChildren } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Box, CircularProgress } from "@mui/material";
+import { getToken, isTokenExpired } from "@/src/utils/auth";
 
 const AuthGuard = ({ children }: PropsWithChildren) => {
   const router = useRouter();
@@ -10,9 +11,10 @@ const AuthGuard = ({ children }: PropsWithChildren) => {
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = getToken();
 
-    if (!token) {
+    if (!token || isTokenExpired()) {
+      localStorage.removeItem("token");
       router.replace("/login");
       return;
     }

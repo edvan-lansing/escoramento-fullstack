@@ -30,6 +30,7 @@ import {
 } from "@/src/services/products/product.service";
 import type { Product, ProductPayload } from "@/src/types/product";
 import { getApiErrorMessage } from "@/src/utils/api-error";
+import { getCurrentUserRole, type UserRole } from "@/src/utils/auth";
 
 const toPayload = (values: ProductFormValues): ProductPayload => ({
   category: values.category || undefined,
@@ -44,6 +45,7 @@ const toPayload = (values: ProductFormValues): ProductPayload => ({
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [userRole, setUserRole] = useState<UserRole | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -81,15 +83,29 @@ export default function Home() {
   };
 
   useEffect(() => {
+    setUserRole(getCurrentUserRole());
     void fetchProducts();
   }, []);
 
+  const canCreateAndEdit = userRole === "admin" || userRole === "editor" || userRole === "manager";
+  const canDelete = userRole === "admin" || userRole === "manager";
+
   const openCreateDialog = () => {
+    if (!canCreateAndEdit) {
+      setError("You do not have permission to create products.");
+      return;
+    }
+
     setSelectedProduct(null);
     setIsFormOpen(true);
   };
 
   const openEditDialog = (product: Product) => {
+    if (!canCreateAndEdit) {
+      setError("You do not have permission to edit products.");
+      return;
+    }
+
     setSelectedProduct(product);
     setIsFormOpen(true);
   };
@@ -123,6 +139,11 @@ export default function Home() {
   };
 
   const handleDelete = async (id: string) => {
+    if (!canDelete) {
+      setError("You do not have permission to delete products.");
+      return;
+    }
+
     setError(null);
 
     try {
@@ -142,10 +163,14 @@ export default function Home() {
               Product Management
             </Typography>
 
-            <Button variant="contained" onClick={openCreateDialog}>
+            <Button variant="contained" onClick={openCreateDialog} disabled={!canCreateAndEdit}>
               Create New Product
             </Button>
           </Stack>
+
+          <Typography variant="body2" color="text.secondary">
+            Logged role: {userRole ?? "unknown"}
+          </Typography>
 
           {error ? <Alert severity="error">{error}</Alert> : null}
 
@@ -196,13 +221,18 @@ export default function Home() {
                         <TableCell>{product.ctaLink || "-"}</TableCell>
                         <TableCell align="right">
                           <Stack direction="row" spacing={1} justifyContent="flex-end">
-                            <Button variant="outlined" onClick={() => openEditDialog(product)}>
+                            <Button
+                              variant="outlined"
+                              onClick={() => openEditDialog(product)}
+                              disabled={!canCreateAndEdit}
+                            >
                               Edit
                             </Button>
                             <Button
                               variant="outlined"
                               color="error"
                               onClick={() => handleDelete(product._id)}
+                              disabled={!canDelete}
                             >
                               Delete
                             </Button>
