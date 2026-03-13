@@ -81,7 +81,7 @@ cd frontend/web
 npm install
 npm run dev
 ```
-
+```
 escoramento-fullstack
 │
 ├── backend
@@ -103,6 +103,8 @@ escoramento-fullstack
 │   └── web
 │
 └── README.md
+
+```
 
 ## Notes
 
