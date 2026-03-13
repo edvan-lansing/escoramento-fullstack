@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { Box, Button, MenuItem, Stack, TextField, Typography } from "@mui/material";
 import {
   createProduct,
   updateProduct,
@@ -105,106 +104,115 @@ const ProductForm = ({
     await onSuccess?.();
   };
 
+  const inputClassName =
+    "w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-slate-500 focus:ring-2 focus:ring-slate-200";
+
   return (
-    <Box component="form" onSubmit={handleSubmit} noValidate>
-      <Stack spacing={2}>
-        <TextField
-          select
-          label="Category"
+    <form onSubmit={handleSubmit} noValidate className="space-y-4">
+      <div>
+        <label className="mb-1 block text-sm font-medium text-slate-700">Category *</label>
+        <select
           value={values.category}
           onChange={(event) => handleChange("category", event.target.value)}
           required
-          error={Boolean(errors.category)}
-          helperText={errors.category}
-          fullWidth
+          className={inputClassName}
         >
-          <MenuItem value="">Selecione</MenuItem>
-          <MenuItem value="estaca">Estaca</MenuItem>
-          <MenuItem value="blindagem">Blindagem</MenuItem>
-        </TextField>
+          <option value="">Selecione</option>
+          <option value="estaca">Estaca</option>
+          <option value="blindagem">Blindagem</option>
+        </select>
+        {errors.category ? <p className="mt-1 text-xs text-rose-600">{errors.category}</p> : null}
+      </div>
 
-        <TextField
-          label="Title"
+      <div>
+        <label className="mb-1 block text-sm font-medium text-slate-700">Title *</label>
+        <input
           value={values.title}
           onChange={(event) => handleChange("title", event.target.value)}
           required
-          error={Boolean(errors.title)}
-          helperText={errors.title}
-          fullWidth
+          className={inputClassName}
         />
+        {errors.title ? <p className="mt-1 text-xs text-rose-600">{errors.title}</p> : null}
+      </div>
 
-        <TextField
-          label="Description"
+      <div>
+        <label className="mb-1 block text-sm font-medium text-slate-700">Description</label>
+        <textarea
           value={values.description}
           onChange={(event) => handleChange("description", event.target.value)}
-          multiline
-          minRows={3}
-          fullWidth
+          rows={3}
+          className={inputClassName}
         />
+      </div>
 
-        <TextField
-          label="Price From"
+      <div>
+        <label className="mb-1 block text-sm font-medium text-slate-700">Price From</label>
+        <input
           type="text"
           value={values.priceFrom}
           onChange={(event) => handleChange("priceFrom", event.target.value)}
           placeholder="Ex: a partir de R$ 350,00"
-          inputProps={{ inputMode: "text" }}
-          fullWidth
+          inputMode="text"
+          className={inputClassName}
         />
+      </div>
 
-        <TextField
-          label="CTA Label"
+      <div>
+        <label className="mb-1 block text-sm font-medium text-slate-700">CTA Label</label>
+        <input
           value={values.ctaLabel}
           onChange={(event) => handleChange("ctaLabel", event.target.value)}
-          fullWidth
+          className={inputClassName}
         />
+      </div>
 
-        <TextField
-          label="CTA Link"
+      <div>
+        <label className="mb-1 block text-sm font-medium text-slate-700">CTA Link</label>
+        <input
           value={values.ctaLink}
           onChange={(event) => handleChange("ctaLink", event.target.value)}
           placeholder="https://..."
-          fullWidth
+          className={inputClassName}
         />
+      </div>
 
-        <TextField
-          label="Current Image URL"
+      <div>
+        <label className="mb-1 block text-sm font-medium text-slate-700">Current Image URL</label>
+        <input
           value={values.image}
           onChange={(event) => handleChange("image", event.target.value)}
           placeholder="https://..."
-          fullWidth
+          className={inputClassName}
         />
+      </div>
 
-        <Stack spacing={1}>
-          <Typography variant="body2" fontWeight={500}>
-            Upload Image
-          </Typography>
+      <div className="space-y-1">
+        <p className="text-sm font-medium text-slate-700">Upload Image</p>
+        <label className="inline-flex cursor-pointer items-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">
+          Escolher arquivo
+          <input
+            className="hidden"
+            type="file"
+            accept="image/*"
+            onChange={(event) => {
+              const file = event.currentTarget.files?.[0] ?? null;
+              handleChange("imageFile", file);
+            }}
+          />
+        </label>
+        <p className="text-xs text-slate-500">
+          {values.imageFile ? values.imageFile.name : "Nenhum arquivo escolhido"}
+        </p>
+      </div>
 
-          <Button variant="outlined" component="label">
-            Escolher arquivo
-            <input
-              hidden
-              type="file"
-              accept="image/*"
-              onChange={(event) => {
-                const file = event.currentTarget.files?.[0] ?? null;
-                handleChange("imageFile", file);
-              }}
-            />
-          </Button>
-
-          <Typography variant="caption" color="text.secondary">
-            {values.imageFile
-              ? values.imageFile.name
-              : "Nenhum arquivo escolhido"}
-          </Typography>
-        </Stack>
-
-        <Button type="submit" variant="contained" disabled={isSubmitting}>
-          {isSubmitting ? "Saving..." : "Save Product"}
-        </Button>
-      </Stack>
-    </Box>
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="inline-flex h-11 w-full items-center justify-center rounded-xl bg-slate-900 px-4 text-sm font-semibold text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        {isSubmitting ? "Saving..." : "Save Product"}
+      </button>
+    </form>
   );
 };
 

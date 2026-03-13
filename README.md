@@ -1,80 +1,85 @@
 # Escoramento Platform
 
-Fullstack platform inspired by the Escoramento.com website.  
-This project includes a public website, an admin CMS, and a backend API to manage products and content.
+Fullstack monorepo inspired by Escoramento.com.
 
-The goal of this project is to demonstrate a modern **fullstack architecture** using React, Next.js, Node.js, and MongoDB.
+The project contains:
+- Public website
+- Admin CMS
+- Backend API
 
----
-
-# Architecture
-
-This project is organized as a **monorepo** containing three main applications:
+## Architecture
 
 ```
 escoramento-fullstack
-│
-├── frontend / web (Next.js website)
-├── cms / admin (React admin dashboard)
-└── backend (Node.js API)
+├── frontend/web   # Public website (Next.js)
+├── cms/admin      # Admin CMS (Next.js + Tailwind CSS)
+└── backend        # REST API (Node.js + Express + MongoDB)
 ```
 
-### Frontend (Website)
-Public-facing website built with **Next.js** and **Material UI**, replicating the Escoramento interface and layout.
+## Applications
 
-Features:
-- Responsive layout
-- Product listing
-- UI components using MUI
-- Internationalization (PT / EN)
-- Modern component architecture
+### Frontend (Website)
+- Next.js app for the public-facing pages
+- Component architecture with reusable UI blocks
+- Internationalization (pt/en)
 
 ### CMS (Admin Panel)
-Administrative interface to manage products and content.
-
-Features:
-- Product CRUD
-- Product status control
-- Image upload support
-- Dashboard interface
-- API integration
+- Next.js admin panel for product management
+- Tailwind CSS UI (Material UI removed)
+- Product CRUD and image upload integration
+- Authentication with role-based actions
 
 ### Backend (API)
-REST API built with **Node.js**, **Express**, and **MongoDB**.
+- Node.js + Express REST API
+- Mongoose models for MongoDB
+- Authentication, validation and upload middleware
 
-Features:
-- Product CRUD endpoints
-- MongoDB integration with Mongoose
-- File upload support
-- Error handling middleware
-- RESTful architecture
+## Tech Stack
 
----
-
-# Tech Stack
-
-Frontend
+Frontend:
 - Next.js
 - React
 - Material UI
 - next-intl (i18n)
 
-CMS
+CMS:
+- Next.js
 - React
+- Tailwind CSS
 - Axios
-- Dashboard UI
 
-Backend
+Backend:
 - Node.js
 - Express
-- MongoDB
-- Mongoose
-- Multer (file uploads)
+- MongoDB + Mongoose
+- Multer
 
----
+## Running Locally
 
-# Folder Structure
+Install and run each app in its own folder.
 
+### Backend
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+### CMS
+
+```bash
+cd cms/admin
+npm install
+npm run dev
+```
+
+### Frontend
+
+```bash
+cd frontend/web
+npm install
+npm run dev
 ```
 
 escoramento-fullstack
@@ -98,3 +103,8 @@ escoramento-fullstack
 │   └── web
 │
 └── README.md
+
+## Notes
+
+- The CMS config sets `turbopack.root` for monorepo compatibility.
+- If you use different ports or hosts locally, update API base URLs accordingly.
