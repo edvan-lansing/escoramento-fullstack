@@ -1,7 +1,17 @@
 export type UserRole = "admin" | "editor" | "manager";
 
+export type AuthUser = {
+  id?: string;
+  email?: string;
+  role?: UserRole;
+};
+
+const TOKEN_STORAGE_KEY = "token";
+const USER_STORAGE_KEY = "auth_user";
+
 type JwtPayload = {
   sub?: string;
+  email?: string;
   role?: UserRole;
   exp?: number;
 };
@@ -46,23 +56,69 @@ export const getToken = (): string | null => {
     return null;
   }
 
-  return window.localStorage.getItem("token");
+  return window.localStorage.getItem(TOKEN_STORAGE_KEY);
+};
+
+export const setAuthSession = (token: string, user?: AuthUser): void => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  window.localStorage.setItem(TOKEN_STORAGE_KEY, token);
+
+  if (user) {
+    window.localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
+  }
+
+  window.dispatchEvent(new Event("auth:changed"));
+};
+
+export const clearAuthSession = (): void => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  window.localStorage.removeItem(TOKEN_STORAGE_KEY);
+  window.localStorage.removeItem(USER_STORAGE_KEY);
+  window.dispatchEvent(new Event("auth:changed"));
+};
+
+const getStoredUser = (): AuthUser | null => {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  const rawUser = window.localStorage.getItem(USER_STORAGE_KEY);
+
+  if (!rawUser) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(rawUser) as AuthUser;
+  } catch {
+    return null;
+  }
+};
+
+export const getCurrentUser = (): AuthUser | null => {
+  const token = getToken();
+  const payload = token ? parseJwtPayload(token) : null;
+  const storedUser = getStoredUser();
+
+  if (!token && !storedUser) {
+    return null;
+  }
+
+  return {
+    id: storedUser?.id ?? payload?.sub,
+    email: storedUser?.email ?? payload?.email,
+    role: storedUser?.role ?? payload?.role,
+  };
 };
 
 export const getCurrentUserRole = (): UserRole | null => {
-  const token = getToken();
-
-  if (!token) {
-    return null;
-  }
-
-  const payload = parseJwtPayload(token);
-
-  if (!payload?.role) {
-    return null;
-  }
-
-  return payload.role;
+  return getCurrentUser()?.role ?? null;
 };
 
 export const isTokenExpired = (): boolean => {
