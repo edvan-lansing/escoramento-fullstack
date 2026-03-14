@@ -7,6 +7,9 @@ type ProductsGridProps = {
 };
 
 export default function ProductsGrid({ products }: ProductsGridProps) {
+	const visibleProducts = products.slice(0, 3);
+	const placeholderCount = visibleProducts.length > 0 && visibleProducts.length < 3 ? 3 - visibleProducts.length : 0;
+
 	return (
 		<Box
 			sx={{
@@ -20,12 +23,12 @@ export default function ProductsGrid({ products }: ProductsGridProps) {
 				"@media (min-width:1080px)": {
 					gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
 				},
-                pt: "10px",
+				pt: "10px",
 				alignItems: "stretch",
 				"& > *": { height: "100%" },
 			}}
 		>
-			{products.map((product) => (
+			{visibleProducts.map((product) => (
 				<ProductCard
 					key={product.title}
 					imageSrc={product.imageSrc}
@@ -36,6 +39,19 @@ export default function ProductsGrid({ products }: ProductsGridProps) {
 					ctaLabel={product.ctaLabel}
 					href={product.href}
 				/>
+			))}
+
+			{Array.from({ length: placeholderCount }).map((_, index) => (
+				<Box
+					key={`placeholder-${index}`}
+					aria-hidden="true"
+					sx={{ visibility: "hidden" }}
+				>
+					<ProductCard
+						title="placeholder"
+						description="placeholder"
+					/>
+				</Box>
 			))}
 		</Box>
 	);

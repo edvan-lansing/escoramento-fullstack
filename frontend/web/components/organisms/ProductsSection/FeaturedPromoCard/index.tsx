@@ -33,6 +33,9 @@ export default function FeaturedPromoCard({ block }: FeaturedPromoCardProps) {
           overflow: "hidden",
           minHeight: { xs: 300, md: 390 },
           display: "grid",
+          "@media (min-width:900px) and (max-width:1439px)": {
+            px: "0",
+          },
           gridTemplateColumns: {
             xs: "1fr",
             md: isCredito ? "1.6fr 0.9fr" : "0.9fr 1.6fr",

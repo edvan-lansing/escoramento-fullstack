@@ -12,7 +12,8 @@ export type HeadingSize =
   | "xxxl"
   | "displaySm"
   | "displayMd"
-  | "displayLg";
+  | "displayLg"
+  | "displayXl";
 
 type HeadingProps = {
   children: ReactNode;
