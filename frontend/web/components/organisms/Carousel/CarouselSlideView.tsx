@@ -40,11 +40,13 @@ export default function CarouselSlideView({ slide }: { slide: CarouselSlide }) {
 
       <Box
         sx={{
-          px: "var(--carousel-content-padding-x)",
+          width: "100%",
+          maxWidth: "var(--carousel-content-max-width)",
+          mx: "auto",
+          px: { xs: "24px", md: "160px" },
           pt: "24px",
           display: "grid",
-          gap: { xs: "10px", md: "18px" },
-          gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
+          gridTemplateColumns: { xs: "1fr", md: "1.05fr 0.95fr" },
           alignItems: { xs: "start", md: "start" },
         }}
       >
@@ -52,7 +54,13 @@ export default function CarouselSlideView({ slide }: { slide: CarouselSlide }) {
           <Heading
             sx={{
               color: theme.colors.surface,
-              fontSize: { xs: theme.typography.heading.displayMd, md: theme.typography.heading.displayLg },
+              fontSize: theme.typography.heading.displayMd,
+              "@media (min-width:900px)": {
+                fontSize: theme.typography.heading.displayLg,
+              },
+              "@media (min-width:1201px)": {
+                fontSize: theme.typography.heading.displayXl,
+              },
             }}
           >
             {slide.title}

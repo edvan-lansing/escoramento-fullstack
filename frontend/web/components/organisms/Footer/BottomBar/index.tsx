@@ -22,15 +22,13 @@ export default function BottomBar({
         backgroundColor: theme.colors.bottomBar,
       }}
     >
-        <SocialLinks />
+      <SocialLinks containerSx={containerSx} />
       <Box
         sx={{
           ...containerSx,
           py: { xs: "12px", md: "16px" },
-          px: { xs: "16px", md: "24px" },
         }}
       >
-        
         <Box
           sx={{
             display: "flex",
@@ -41,7 +39,6 @@ export default function BottomBar({
             gap: { xs: "8px", md: "16px" },
           }}
         >
-            
           <Box
             sx={{
               display: "flex",

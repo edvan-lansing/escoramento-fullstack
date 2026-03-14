@@ -13,12 +13,14 @@ type HeaderProps = {
 const Header = ({ onSwitchUserRequest }: HeaderProps) => {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [user, setUser] = useState<AuthUser | null>(() => getCurrentUser());
+  const [user, setUser] = useState<AuthUser | null>(null);
 
   useEffect(() => {
     const handleAuthChange = () => {
       setUser(getCurrentUser());
     };
+
+    handleAuthChange();
 
     window.addEventListener("auth:changed", handleAuthChange);
 

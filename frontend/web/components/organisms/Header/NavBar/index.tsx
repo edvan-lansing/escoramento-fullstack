@@ -49,7 +49,7 @@ export default function NavBar({ navItems }: NavBarProps) {
           display: "flex",
           alignItems: "center",
           flexWrap: "nowrap",
-          gap: { xs: "6px", md: "12px", lg: "16px" },
+          gap: { xs: "6px", md: "10px", lg: "14px" },
         }}
       >
         <DesktopNavigation

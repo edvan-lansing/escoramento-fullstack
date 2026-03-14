@@ -31,6 +31,9 @@ export default function PromoCard({ block }: PromoCardProps) {
           display: "grid",
           gridTemplateColumns: { xs: "1fr", md: "1.4fr 0.9fr" },
           overflow: "hidden",
+          "@media (min-width:900px) and (max-width:1439px)": {
+            px: "24px",
+          },
         }}
       >
         <Box
@@ -58,6 +61,8 @@ export default function PromoCard({ block }: PromoCardProps) {
             position: "relative",
             zIndex: 1,
             mt: { xs: "-18px", md: 0 },
+            ml: { xs: 0, md: "-42px" },
+            pl: { xs: "18px", md: "24px" },
             px: { xs: "18px", md: 0 },
           }}
         >

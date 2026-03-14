@@ -9,9 +9,12 @@ export default function Footer() {
   const t = useTranslations("Footer");
 
   const containerSx = {
-    maxWidth: theme.layout.containerMaxWidth,
-    mx: "auto",
-    px: theme.layout.containerPadding,
+    width: "100%",
+    px: { xs: "16px", md: "24px" },
+    "@media (min-width:1080px)": {
+      maxWidth: "1200px",
+      mx: "auto",
+    },
   } as const;
 
   const linkSx = {

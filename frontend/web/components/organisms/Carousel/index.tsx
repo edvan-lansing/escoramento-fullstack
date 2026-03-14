@@ -51,8 +51,9 @@ export default function Carousel({
             position: "relative",
             overflow: "hidden",
             backgroundColor: theme.colors.accent,
-            "--carousel-image-height": { xs: "264px", md: "430px" },
-            "--carousel-content-padding-x": { xs: "18px", md: "160px" },
+            "--carousel-image-height": { xs: "264px", md: "450px" },
+            "--carousel-content-padding-x": { xs: "16px", md: "24px" },
+            "--carousel-content-max-width": "1200px",
          }}
       >
          <Box

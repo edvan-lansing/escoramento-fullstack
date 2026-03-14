@@ -17,11 +17,14 @@ export default function CarouselControls({ onPrev, onNext, children }: Props) {
   return (
     <Box
       sx={{
+        width: "100%",
+        maxWidth: "var(--carousel-content-max-width)",
+        mx: "auto",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        px: "var(--carousel-content-padding-x)",
-        py: "10px",
+        px: { xs: "24px", md: "160px" },
+        py: { xs: "8px", md: "6px" },
       }}
     >
       <IconButton

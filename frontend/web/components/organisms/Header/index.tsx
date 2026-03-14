@@ -55,14 +55,17 @@ export default function Header() {
       >
         <Box
           sx={{
-            maxWidth: theme.layout.containerMaxWidth,
-            mx: "auto",
+            width: "100%",
             px: { xs: "16px", md: "24px" },
-            py: { xs: "16px", md: "16px" },
+            "@media (min-width:1080px)": {
+              maxWidth: "1200px",
+              mx: "auto",
+            },
+            py: { xs: "14px", md: "14px" },
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            gap: { xs: "12px", md: "18px" },
+            gap: { xs: "10px", md: "14px" },
           }}
         >
           <Box
