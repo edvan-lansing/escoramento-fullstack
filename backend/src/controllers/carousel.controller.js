@@ -4,8 +4,9 @@ const { asyncHandler } = require("../utils/asyncHandler");
 const { ApiError } = require("../utils/apiError");
 
 const resolveImageUrl = (req) => {
-  if (req.file?.filename) {
-    return `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
+  if (req.file?.buffer && req.file?.mimetype) {
+    const base64Content = req.file.buffer.toString("base64");
+    return `data:${req.file.mimetype};base64,${base64Content}`;
   }
 
   return req.body.image;

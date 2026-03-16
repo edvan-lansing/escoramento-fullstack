@@ -1,8 +1,10 @@
 import axios from "axios";
 import { getToken } from "@/src/utils/auth";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.trim() || "http://localhost:5000/api";
+
 export const apiClient = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",

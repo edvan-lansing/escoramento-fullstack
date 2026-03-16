@@ -11,7 +11,7 @@ type CmsCarouselItem = {
   isActive?: boolean;
 };
 
-const CMS_API_BASE_URL = "http://localhost:5000/api";
+const CMS_API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.trim() || "http://localhost:5000/api";
 
 const resolveCmsImageUrl = (image?: string): string => {
   if (!image) return "";
@@ -21,6 +21,10 @@ const resolveCmsImageUrl = (image?: string): string => {
   if (!value) return "";
 
   if (value.startsWith("http://") || value.startsWith("https://")) {
+    return value;
+  }
+
+  if (value.startsWith("data:image/")) {
     return value;
   }
 
