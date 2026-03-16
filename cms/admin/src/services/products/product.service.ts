@@ -10,6 +10,7 @@ const toFormData = (payload: Partial<ProductPayload>) => {
   if (payload.priceFrom !== undefined) formData.append("priceFrom", String(payload.priceFrom));
   if (payload.ctaLabel !== undefined) formData.append("ctaLabel", payload.ctaLabel);
   if (payload.ctaLink !== undefined) formData.append("ctaLink", payload.ctaLink);
+  if (payload.displayOrder !== undefined) formData.append("displayOrder", String(payload.displayOrder));
 
   if (payload.imageFile) {
     formData.append("image", payload.imageFile);
@@ -55,5 +56,15 @@ export const updateProduct = async (
 
 export const deleteProduct = async (id: string): Promise<{ message: string }> => {
   const response = await apiClient.delete<{ message: string }>(`/products/${id}`);
+  return response.data;
+};
+
+export const deactivateProduct = async (id: string): Promise<Product> => {
+  const response = await apiClient.patch<Product>(`/products/${id}/deactivate`);
+  return response.data;
+};
+
+export const activateProduct = async (id: string): Promise<Product> => {
+  const response = await apiClient.patch<Product>(`/products/${id}/activate`);
   return response.data;
 };

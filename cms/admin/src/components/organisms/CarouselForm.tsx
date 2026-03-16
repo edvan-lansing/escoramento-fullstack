@@ -1,70 +1,60 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import {
-  createProduct,
-  updateProduct,
-} from "@/src/services/products/product.service";
-import type { ProductPayload } from "@/src/types/product";
 
-export interface ProductFormValues {
+export interface CarouselFormValues {
   displayOrder: string;
-  category: "estaca" | "blindagem" | "";
   title: string;
+  subtitle: string;
   description: string;
-  priceFrom: string;
-  image: string;
-  imageFile: File | null;
   ctaLabel: string;
   ctaLink: string;
+  image: string;
+  imageFile: File | null;
 }
 
-interface ProductFormErrors {
-  displayOrder?: string;
-  category?: string;
+interface CarouselFormErrors {
   title?: string;
+  displayOrder?: string;
 }
 
-interface ProductFormProps {
-  productId?: string;
-  initialValues?: Partial<ProductFormValues>;
+interface CarouselFormProps {
+  initialValues?: Partial<CarouselFormValues>;
   isSubmitting?: boolean;
   canEditOrder?: boolean;
-  onSuccess?: () => void | Promise<void>;
-  onSubmit?: (values: ProductFormValues) => void | Promise<void>;
+  onSubmit: (values: CarouselFormValues) => void | Promise<void>;
 }
 
-const ProductForm = ({
-  productId,
+const CarouselForm = ({
   initialValues,
   isSubmitting = false,
   canEditOrder = true,
-  onSuccess,
   onSubmit,
-}: ProductFormProps) => {
-  const [values, setValues] = useState<ProductFormValues>({
+}: CarouselFormProps) => {
+  const [values, setValues] = useState<CarouselFormValues>({
     displayOrder: initialValues?.displayOrder ?? "0",
-    category: (initialValues?.category as "estaca" | "blindagem" | "") ?? "",
     title: initialValues?.title ?? "",
+    subtitle: initialValues?.subtitle ?? "",
     description: initialValues?.description ?? "",
-    priceFrom: initialValues?.priceFrom ?? "",
-    image: initialValues?.image ?? "",
-    imageFile: null,
     ctaLabel: initialValues?.ctaLabel ?? "",
     ctaLink: initialValues?.ctaLink ?? "",
+    image: initialValues?.image ?? "",
+    imageFile: null,
   });
-  const [errors, setErrors] = useState<ProductFormErrors>({});
+  const [errors, setErrors] = useState<CarouselFormErrors>({});
 
-  const handleChange = (
-    field: keyof ProductFormValues,
-    value: string | boolean | File | null,
-  ) => {
+  const handleChange = (field: keyof CarouselFormValues, value: string | File | null) => {
     setValues((prev) => ({ ...prev, [field]: value }));
   };
 
   const validate = (): boolean => {
-    const nextErrors: ProductFormErrors = {};
+    const nextErrors: CarouselFormErrors = {};
+
     const parsedOrder = Number(values.displayOrder);
+
+    if (!values.title.trim()) {
+      nextErrors.title = "Title is required";
+    }
 
     if (!values.displayOrder.trim()) {
       nextErrors.displayOrder = "Order is required";
@@ -72,49 +62,16 @@ const ProductForm = ({
       nextErrors.displayOrder = "Order must be a non-negative integer";
     }
 
-    if (!values.category) {
-      nextErrors.category = "Category is required";
-    }
-
-    if (!values.title.trim()) {
-      nextErrors.title = "Title is required";
-    }
-
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
   };
-
-  const toPayload = (): ProductPayload => ({
-    displayOrder: Number(values.displayOrder),
-    category: values.category || undefined,
-    title: values.title.trim(),
-    description: values.description,
-    priceFrom: values.priceFrom.trim(),
-    image: values.image,
-    imageFile: values.imageFile,
-    ctaLabel: values.ctaLabel.trim(),
-    ctaLink: values.ctaLink.trim(),
-  });
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!validate()) return;
 
-    if (onSubmit) {
-      await onSubmit(values);
-      return;
-    }
-
-    const payload = toPayload();
-
-    if (productId) {
-      await updateProduct(productId, payload);
-    } else {
-      await createProduct(payload);
-    }
-
-    await onSuccess?.();
+    await onSubmit(values);
   };
 
   const inputClassName =
@@ -134,23 +91,10 @@ const ProductForm = ({
           required
           className={inputClassName}
         />
-        {errors.displayOrder ? <p className="mt-1 text-xs text-rose-600">{errors.displayOrder}</p> : null}
+        {errors.displayOrder ? (
+          <p className="mt-1 text-xs text-rose-600">{errors.displayOrder}</p>
+        ) : null}
         {!canEditOrder ? <p className="mt-1 text-xs text-slate-500">Only admin and manager can edit order.</p> : null}
-      </div>
-
-      <div>
-        <label className="mb-1 block text-sm font-medium text-slate-700">Category *</label>
-        <select
-          value={values.category}
-          onChange={(event) => handleChange("category", event.target.value)}
-          required
-          className={inputClassName}
-        >
-          <option value="">Selecione</option>
-          <option value="estaca">Estaca</option>
-          <option value="blindagem">Blindagem</option>
-        </select>
-        {errors.category ? <p className="mt-1 text-xs text-rose-600">{errors.category}</p> : null}
       </div>
 
       <div>
@@ -165,23 +109,20 @@ const ProductForm = ({
       </div>
 
       <div>
-        <label className="mb-1 block text-sm font-medium text-slate-700">Description</label>
-        <textarea
-          value={values.description}
-          onChange={(event) => handleChange("description", event.target.value)}
-          rows={3}
+        <label className="mb-1 block text-sm font-medium text-slate-700">Subtitle</label>
+        <input
+          value={values.subtitle}
+          onChange={(event) => handleChange("subtitle", event.target.value)}
           className={inputClassName}
         />
       </div>
 
       <div>
-        <label className="mb-1 block text-sm font-medium text-slate-700">Price From</label>
-        <input
-          type="text"
-          value={values.priceFrom}
-          onChange={(event) => handleChange("priceFrom", event.target.value)}
-          placeholder="Ex: a partir de R$ 350,00"
-          inputMode="text"
+        <label className="mb-1 block text-sm font-medium text-slate-700">Description</label>
+        <textarea
+          value={values.description}
+          onChange={(event) => handleChange("description", event.target.value)}
+          rows={4}
           className={inputClassName}
         />
       </div>
@@ -200,7 +141,7 @@ const ProductForm = ({
         <input
           value={values.ctaLink}
           onChange={(event) => handleChange("ctaLink", event.target.value)}
-          placeholder="https://..."
+          placeholder="/contato or https://..."
           className={inputClassName}
         />
       </div>
@@ -239,10 +180,10 @@ const ProductForm = ({
         disabled={isSubmitting}
         className="inline-flex h-11 w-full items-center justify-center rounded-xl bg-slate-900 px-4 text-sm font-semibold text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {isSubmitting ? "Saving..." : "Save Product"}
+        {isSubmitting ? "Saving..." : "Save Carousel Item"}
       </button>
     </form>
   );
 };
 
-export default ProductForm;
+export default CarouselForm;

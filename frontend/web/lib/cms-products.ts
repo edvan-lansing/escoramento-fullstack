@@ -28,7 +28,7 @@ const mapCmsProductToUi = (product: CmsProduct): Product => ({
 
 export const fetchProducts = async (category: CmsCategory): Promise<Product[]> => {
   try {
-    const response = await fetch(`${CMS_API_BASE_URL}/products?category=${category}`, {
+    const response = await fetch(`${CMS_API_BASE_URL}/products?category=${category}&isActive=true`, {
       cache: "no-store",
       headers: {
         Accept: "application/json",

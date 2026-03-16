@@ -1,13 +1,7 @@
 const mongoose = require("mongoose");
 
-const productSchema = new mongoose.Schema(
+const carouselSchema = new mongoose.Schema(
   {
-    category: {
-      type: String,
-      enum: ["estaca", "blindagem"],
-      required: [true, "Category is required"],
-      trim: true,
-    },
     image: {
       type: String,
       trim: true,
@@ -15,15 +9,15 @@ const productSchema = new mongoose.Schema(
     },
     title: {
       type: String,
-      required: [true, "Product title is required"],
+      required: [true, "Carousel title is required"],
       trim: true,
     },
-    description: {
+    subtitle: {
       type: String,
       trim: true,
       default: "",
     },
-    priceFrom: {
+    description: {
       type: String,
       trim: true,
       default: "",
@@ -55,4 +49,4 @@ const productSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Product", productSchema);
+module.exports = mongoose.model("Carousel", carouselSchema);

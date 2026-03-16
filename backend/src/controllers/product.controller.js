@@ -12,11 +12,19 @@ const resolveImageUrl = (req) => {
 };
 
 const getAllProducts = asyncHandler(async (req, res) => {
-  const { category } = req.query;
+  const { category, isActive } = req.query;
   const filters = {};
 
   if (category === "estaca" || category === "blindagem") {
     filters.category = category;
+  }
+
+  if (isActive === "true") {
+    filters.isActive = { $ne: false };
+  }
+
+  if (isActive === "false") {
+    filters.isActive = false;
   }
 
   const products = await productService.getAllProducts(filters);
@@ -35,10 +43,16 @@ const getProductById = asyncHandler(async (req, res) => {
 });
 
 const createProduct = asyncHandler(async (req, res) => {
-  const product = await productService.createProduct({
+  const payload = {
     ...req.body,
     image: resolveImageUrl(req),
-  });
+  };
+
+  if (req.user?.role === "editor") {
+    delete payload.displayOrder;
+  }
+
+  const product = await productService.createProduct(payload);
   res.status(201).json(product);
 });
 
@@ -59,6 +73,10 @@ const updateProduct = asyncHandler(async (req, res) => {
     payload.image = imageUrl;
   }
 
+  if (req.user?.role === "editor") {
+    delete payload.displayOrder;
+  }
+
   const product = await productService.updateProduct(id, payload);
   res.status(200).json(product);
 });
@@ -74,10 +92,34 @@ const deleteProduct = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Product deleted successfully" });
 });
 
+const deactivateProduct = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    throw new ApiError(400, "Invalid product ID");
+  }
+
+  const product = await productService.updateProductActiveStatus(id, false);
+  res.status(200).json(product);
+});
+
+const activateProduct = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    throw new ApiError(400, "Invalid product ID");
+  }
+
+  const product = await productService.updateProductActiveStatus(id, true);
+  res.status(200).json(product);
+});
+
 module.exports = {
   getAllProducts,
   getProductById,
   createProduct,
   updateProduct,
   deleteProduct,
+  deactivateProduct,
+  activateProduct,
 };

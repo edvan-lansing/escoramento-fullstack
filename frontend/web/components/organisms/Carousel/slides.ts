@@ -5,6 +5,7 @@ export type CarouselSlide = {
   kicker?: string;
   description: string;
   ctaLabel: string;
+  ctaHref?: string;
   onCtaClick?: () => void;
 };
 
