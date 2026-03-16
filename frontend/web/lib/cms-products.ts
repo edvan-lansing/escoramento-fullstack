@@ -15,9 +15,36 @@ type CmsProduct = {
 
 const CMS_API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.trim() || "http://localhost:5000/api";
 
+const resolveCmsImageUrl = (image?: string): string => {
+  if (!image) return "";
+
+  const value = image.trim();
+
+  if (!value) return "";
+
+  if (value.startsWith("http://") || value.startsWith("https://")) {
+    return value;
+  }
+
+  if (value.startsWith("data:image/")) {
+    return value;
+  }
+
+  if (value.startsWith("localhost:") || value.startsWith("127.0.0.1:")) {
+    return `http://${value}`;
+  }
+
+  if (value.startsWith("uploads/") || value.startsWith("/uploads/")) {
+    const cmsBaseUrl = CMS_API_BASE_URL.replace(/\/api$/, "");
+    return `${cmsBaseUrl}${value.startsWith("/") ? "" : "/"}${value}`;
+  }
+
+  return "";
+};
+
 const mapCmsProductToUi = (product: CmsProduct): Product => ({
   category: product.category,
-  imageSrc: product.image,
+  imageSrc: resolveCmsImageUrl(product.image),
   imageAlt: product.title,
   title: product.title,
   description: product.description ?? "",
