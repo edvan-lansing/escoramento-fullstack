@@ -2,9 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Box from "@mui/material/Box";
-import { useTranslations } from "next-intl";
 import theme from "../../../styles/theme";
-import { getDefaultSlides, type CarouselSlide } from "./slides";
+import type { CarouselSlide } from "./slides";
 import CarouselSlideView from "./CarouselSlideView";
 import CarouselControls from "./CarouselControls";
 import CarouselIndicators from "./CarouselIndicators";
@@ -20,8 +19,7 @@ export default function Carousel({
    autoPlay = true,
    intervalMs = 5000,
 }: CarouselProps) {
-   const t = useTranslations("Carousel");
-   const resolvedSlides = useMemo(() => slides ?? getDefaultSlides(t), [slides, t]);
+   const resolvedSlides = useMemo(() => slides ?? [], [slides]);
    const [activeIndex, setActiveIndex] = useState(0);
 
    useEffect(() => {
@@ -64,8 +62,8 @@ export default function Carousel({
                transition: "transform 400ms ease",
             }}
          >
-            {resolvedSlides.map((slide) => (
-               <Box key={slide.imageSrc} sx={{ flex: "0 0 100%" }}>
+            {resolvedSlides.map((slide, index) => (
+               <Box key={`${slide.imageSrc}-${slide.title}-${index}`} sx={{ flex: "0 0 100%" }}>
                   <CarouselSlideView slide={slide} />
                </Box>
             ))}

@@ -1,10 +1,9 @@
-export interface Product {
+export interface CarouselItem {
   _id: string;
-  category?: "estaca" | "blindagem";
   image?: string;
   title: string;
+  subtitle?: string;
   description?: string;
-  priceFrom?: string;
   ctaLabel?: string;
   ctaLink?: string;
   displayOrder?: number;
@@ -13,13 +12,12 @@ export interface Product {
   updatedAt: string;
 }
 
-export interface ProductPayload {
-  category?: "estaca" | "blindagem";
+export interface CarouselPayload {
   image?: string;
   imageFile?: File | null;
   title: string;
+  subtitle?: string;
   description?: string;
-  priceFrom?: string;
   ctaLabel?: string;
   ctaLink?: string;
   displayOrder?: number;

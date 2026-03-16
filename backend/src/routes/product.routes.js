@@ -5,6 +5,8 @@ const {
   createProduct,
   updateProduct,
   deleteProduct,
+  deactivateProduct,
+  activateProduct,
 } = require("../controllers/product.controller");
 const { validate } = require("../middleware/validate.middleware");
 const { upload } = require("../middleware/upload.middleware");
@@ -32,5 +34,7 @@ router.put(
   updateProduct
 );
 router.delete("/:id", authMiddleware, authorizeRoles("admin", "manager"), deleteProduct);
+router.patch("/:id/deactivate", authMiddleware, authorizeRoles("admin", "manager"), deactivateProduct);
+router.patch("/:id/activate", authMiddleware, authorizeRoles("admin", "manager"), activateProduct);
 
 module.exports = router;

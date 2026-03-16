@@ -16,27 +16,29 @@ export default function CarouselSlideView({ slide }: { slide: CarouselSlide }) {
         color: theme.colors.surface,
       }}
     >
-      <Box
-        sx={{
-          width: "100%",
-          height: "var(--carousel-image-height)",
-          overflow: "hidden",
-          borderBottomLeftRadius: "50px",
-          borderBottomRightRadius: "50px",
-        }}
-      >
+      {slide.imageSrc ? (
         <Box
-          component="img"
-          src={slide.imageSrc}
-          alt={slide.imageAlt}
           sx={{
             width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            display: "block",
+            height: "var(--carousel-image-height)",
+            overflow: "hidden",
+            borderBottomLeftRadius: "50px",
+            borderBottomRightRadius: "50px",
           }}
-        />
-      </Box>
+        >
+          <Box
+            component="img"
+            src={slide.imageSrc}
+            alt={slide.imageAlt}
+            sx={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+            }}
+          />
+        </Box>
+      ) : null}
 
       <Box
         sx={{
@@ -86,6 +88,7 @@ export default function CarouselSlideView({ slide }: { slide: CarouselSlide }) {
           <Box sx={{ pt: "6px" }}>
             <Button
               onClick={slide.onCtaClick}
+              href={slide.ctaHref || undefined}
               disableElevation
               sx={{
                 backgroundColor: "#fed203",

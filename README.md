@@ -11,9 +11,9 @@ The project contains:
 
 ```
 escoramento-fullstack
-├── frontend/web   # Public website (Next.js)
-├── cms/admin      # Admin CMS (Next.js + Tailwind CSS)
-└── backend        # REST API (Node.js + Express + MongoDB)
+├── frontend/web
+├── cms/admin
+└── backend
 ```
 
 ## Applications
@@ -80,30 +80,6 @@ npm run dev
 cd frontend/web
 npm install
 npm run dev
-```
-```
-escoramento-fullstack
-│
-├── backend
-│   ├── src
-│   │   ├── controllers
-│   │   ├── models
-│   │   ├── routes
-│   │   ├── middleware
-│   │   └── config
-│   │
-│   ├── uploads
-│   ├── server.js
-│   └── package.json
-│
-├── cms
-│   └── admin
-│
-├── frontend
-│   └── web
-│
-└── README.md
-
 ```
 
 ## Notes

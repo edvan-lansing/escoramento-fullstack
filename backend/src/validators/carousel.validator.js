@@ -18,18 +18,17 @@ const optionalIntegerField = z.preprocess((value) => {
   return value;
 }, z.number().int().min(0).optional());
 
-const productSchema = z.object({
-  category: z.enum(["estaca", "blindagem"]),
+const carouselSchema = z.object({
   image: z.string().trim().optional(),
   title: z.string().trim().min(1, "title is required"),
+  subtitle: z.string().trim().optional(),
   description: z.string().trim().optional(),
-  priceFrom: z.string().trim().optional(),
   ctaLabel: z.string().trim().optional(),
   ctaLink: z.string().trim().optional(),
   displayOrder: optionalIntegerField,
   isActive: z.boolean().optional(),
 });
 
-const updateProductSchema = productSchema.partial();
+const updateCarouselSchema = carouselSchema.partial();
 
-module.exports = { productSchema, updateProductSchema };
+module.exports = { carouselSchema, updateCarouselSchema };
