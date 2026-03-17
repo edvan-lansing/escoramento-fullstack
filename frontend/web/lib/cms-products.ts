@@ -35,8 +35,7 @@ const resolveCmsImageUrl = (image?: string): string => {
   }
 
   if (value.startsWith("uploads/") || value.startsWith("/uploads/")) {
-    const cmsBaseUrl = CMS_API_BASE_URL.replace(/\/api$/, "");
-    return `${cmsBaseUrl}${value.startsWith("/") ? "" : "/"}${value}`;
+    return "";
   }
 
   return "";

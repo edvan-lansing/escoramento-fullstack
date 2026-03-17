@@ -7,6 +7,7 @@ const {
   deleteProduct,
   deactivateProduct,
   activateProduct,
+  getProductImage,
 } = require("../controllers/product.controller");
 const { validate } = require("../middleware/validate.middleware");
 const { upload } = require("../middleware/upload.middleware");
@@ -16,6 +17,7 @@ const { productSchema, updateProductSchema } = require("../validators/product.va
 const router = express.Router();
 
 router.get("/", getAllProducts);
+router.get("/:id/image", getProductImage);
 router.get("/:id", getProductById);
 router.post(
   "/",

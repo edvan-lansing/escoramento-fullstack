@@ -37,6 +37,32 @@ type LoginResponse = {
   };
 };
 
+const API_BASE_URL = String(apiClient.defaults.baseURL ?? "");
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const API_ORIGIN = API_BASE_URL.replace(/\/api\/?$/i, "");
+
+const resolveImageHref = (image?: string, resourceId?: string, resourceType?: "product" | "carousel") => {
+  if (!image) return "";
+
+  const trimmed = image.trim();
+
+  if (!trimmed) return "";
+
+  if (trimmed.startsWith("uploads/") || trimmed.startsWith("/uploads/")) {
+    return "";
+  }
+
+  if (trimmed.startsWith("data:image/") && resourceId && resourceType) {
+    return `${API_BASE_URL}/${resourceType}s/${resourceId}/image`;
+  }
+
+  if (/^(https?:|blob:)/i.test(trimmed)) {
+    return trimmed;
+  }
+
+  return "";
+};
+
 const toProductPayload = (values: ProductFormValues): ProductPayload => ({
   displayOrder: Number(values.displayOrder),
   category: values.category || undefined,
@@ -422,9 +448,9 @@ const ProductsPageTemplate = () => {
                               <td className="px-4 py-3 font-medium text-slate-900">{product.displayOrder ?? 0}</td>
                               <td className="px-4 py-3">{product.category || "-"}</td>
                               <td className="px-4 py-3">
-                                {product.image ? (
+                                {resolveImageHref(product.image, product._id, "product") ? (
                                   <a
-                                    href={product.image}
+                                    href={resolveImageHref(product.image, product._id, "product")}
                                     target="_blank"
                                     rel="noreferrer"
                                     className="text-sky-700 underline-offset-2 hover:underline"
@@ -432,7 +458,7 @@ const ProductsPageTemplate = () => {
                                     View image
                                   </a>
                                 ) : (
-                                  "-"
+                                  "Image unavailable"
                                 )}
                               </td>
                               <td className="px-4 py-3">{product.title}</td>
@@ -530,9 +556,9 @@ const ProductsPageTemplate = () => {
                             <tr key={item._id} className="hover:bg-slate-50/70">
                               <td className="px-4 py-3 font-medium text-slate-900">{item.displayOrder ?? 0}</td>
                               <td className="px-4 py-3">
-                                {item.image ? (
+                                {resolveImageHref(item.image, item._id, "carousel") ? (
                                   <a
-                                    href={item.image}
+                                    href={resolveImageHref(item.image, item._id, "carousel")}
                                     target="_blank"
                                     rel="noreferrer"
                                     className="text-sky-700 underline-offset-2 hover:underline"
@@ -540,7 +566,7 @@ const ProductsPageTemplate = () => {
                                     View image
                                   </a>
                                 ) : (
-                                  "-"
+                                  "Image unavailable"
                                 )}
                               </td>
                               <td className="px-4 py-3">{item.title}</td>

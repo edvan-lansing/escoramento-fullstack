@@ -7,6 +7,7 @@ const {
   deactivateCarouselItem,
   activateCarouselItem,
   deleteCarouselItem,
+  getCarouselItemImage,
 } = require("../controllers/carousel.controller");
 const { validate } = require("../middleware/validate.middleware");
 const { upload } = require("../middleware/upload.middleware");
@@ -16,6 +17,7 @@ const { carouselSchema, updateCarouselSchema } = require("../validators/carousel
 const router = express.Router();
 
 router.get("/", getAllCarouselItems);
+router.get("/:id/image", getCarouselItemImage);
 router.get("/:id", getCarouselItemById);
 router.post(
   "/",

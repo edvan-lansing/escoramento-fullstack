@@ -115,6 +115,38 @@ const activateProduct = asyncHandler(async (req, res) => {
   res.status(200).json(product);
 });
 
+const getProductImage = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    throw new ApiError(400, "Invalid product ID");
+  }
+
+  const product = await productService.getProductById(id);
+
+  if (!product?.image) {
+    throw new ApiError(404, "Product image not found");
+  }
+
+  const imageString = product.image.trim();
+
+  if (!imageString.startsWith("data:")) {
+    throw new ApiError(400, "Invalid image format");
+  }
+
+  const matches = imageString.match(/^data:([^;]+);base64,(.+)$/);
+  if (!matches) {
+    throw new ApiError(400, "Invalid base64 image format");
+  }
+
+  const [, mimeType, base64Data] = matches;
+  const buffer = Buffer.from(base64Data, "base64");
+
+  res.set("Content-Type", mimeType);
+  res.set("Cache-Control", "public, max-age=86400");
+  res.send(buffer);
+});
+
 module.exports = {
   getAllProducts,
   getProductById,
@@ -123,4 +155,5 @@ module.exports = {
   deleteProduct,
   deactivateProduct,
   activateProduct,
+  getProductImage,
 };
