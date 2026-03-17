@@ -17,8 +17,21 @@ const resolveCmsImageUrl = (image?: string): string => {
   if (!image) return "";
 
   const value = image.trim();
+  const cmsBaseUrl = CMS_API_BASE_URL.replace(/\/api$/, "");
 
   if (!value) return "";
+
+  if (value.startsWith("http://localhost:") || value.startsWith("https://localhost:") || value.startsWith("http://127.0.0.1:") || value.startsWith("https://127.0.0.1:")) {
+    try {
+      const parsed = new URL(value);
+      if (parsed.pathname.startsWith("/uploads/")) {
+        return `${cmsBaseUrl}${parsed.pathname}`;
+      }
+      return "";
+    } catch {
+      return "";
+    }
+  }
 
   if (value.startsWith("http://") || value.startsWith("https://")) {
     return value;
@@ -33,7 +46,6 @@ const resolveCmsImageUrl = (image?: string): string => {
   }
 
   if (value.startsWith("uploads/") || value.startsWith("/uploads/")) {
-    const cmsBaseUrl = CMS_API_BASE_URL.replace(/\/api$/, "");
     return `${cmsBaseUrl}${value.startsWith("/") ? "" : "/"}${value}`;
   }
 
