@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken } from "@/src/utils/auth";
+import { clearAuthSession, getToken } from "@/src/utils/auth";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.trim() || "http://localhost:5000/api";
 
@@ -21,5 +21,21 @@ apiClient.interceptors.request.use((config) => {
 
   return config;
 });
+
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const status = error?.response?.status;
+    const requestUrl = String(error?.config?.url || "");
+    const isLoginRequest = requestUrl.includes("/auth/login");
+
+    if (status === 401 && !isLoginRequest && typeof window !== "undefined") {
+      clearAuthSession();
+      window.location.assign("/login");
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 export default apiClient;
